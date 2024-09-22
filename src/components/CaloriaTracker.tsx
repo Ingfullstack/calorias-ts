@@ -1,15 +1,12 @@
 import { useMemo } from "react"
-import { Actividades } from "../types"
 import CaloriaDisplay from "./CaloriaDisplay"
+import { useActividad } from "../hooks/useActividad"
 
-type Props = {
-    state: Actividades[]
-}
+export default function CaloriaTracker() {
 
-export default function CaloriaTracker({ state }: Props) {
-
-    const caloriaConsumida = useMemo(() => state.reduce((total,item) => item.categoria === 1 ? total + item.caloria : total , 0) ,[state])
-    const caloriaQuemada = useMemo(() => state.reduce((total,item) => item.categoria === 2 ? total + item.caloria : total, 0) ,[state])
+    const { state } = useActividad();
+    const caloriaConsumida = useMemo(() => state.actividad.reduce((total,item) => item.categoria === 1 ? total + item.caloria : total , 0) ,[state])
+    const caloriaQuemada = useMemo(() => state.actividad.reduce((total,item) => item.categoria === 2 ? total + item.caloria : total, 0) ,[state])
     const caloriaTotales = useMemo(() => {
         return caloriaConsumida - caloriaQuemada
     },[state])

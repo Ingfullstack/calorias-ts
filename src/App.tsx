@@ -1,13 +1,12 @@
-import { useEffect, useMemo, useReducer } from "react";
+import { useEffect } from "react";
 import Formulario from "./components/Formulario";
-import { ActividadReducer, initialState } from "./hooks/actividadReducer";
 import ListaActividad from "./components/ListaActividad";
 import CaloriaTracker from "./components/CaloriaTracker";
+import { useActividad } from "./hooks/useActividad";
 
 function App() {
-  const [state, dispatch] = useReducer(ActividadReducer, initialState);
 
-  const resetear = useMemo(() => state.actividad.length > 0, [state.actividad]);
+  const { state, dispatch, resetear } = useActividad();
 
   useEffect(() => {
     localStorage.setItem("actividad", JSON.stringify(state.actividad));
@@ -32,18 +31,18 @@ function App() {
 
       <section className="bg-lime-500 py-20 px-3">
         <div className="max-w-4xl mx-auto">
-          <Formulario dispatch={dispatch} state={state} />
+          <Formulario />
         </div>
       </section>
 
       <section className="bg-gray-800 py-10">
           <div className="max-w-4xl mx-auto">
-              <CaloriaTracker state={ state.actividad }/>
+              <CaloriaTracker/>
           </div>
       </section>
 
       <section className="max-w-4xl mx-auto p-10 px-3">
-        <ListaActividad state={state.actividad} dispatch={dispatch} />
+        <ListaActividad/>
       </section>
     </>
   );

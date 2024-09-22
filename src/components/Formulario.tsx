@@ -1,15 +1,12 @@
-import { ChangeEvent, Dispatch, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Categorias } from "../data/db";
 import { Actividades } from "../types";
-import { ActividadAction, ActividadState } from "../hooks/actividadReducer";
 import { v4 as uuidv4 } from 'uuid';
+import { useActividad } from "../hooks/useActividad";
 
-type Props = {
-  dispatch: Dispatch<ActividadAction>
-  state: ActividadState
-}
+export default function Formulario() {
 
-export default function Formulario({ dispatch, state }: Props ) {
+  const { dispatch, state } = useActividad();
 
   const inicial = {
     id: uuidv4(),
